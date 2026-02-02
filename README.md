@@ -1,2 +1,1 @@
-# microsoft-agent-framework-101
-Microsoft Agent Framework Tutorial
+# Microsoft Agent Framework Tutorial

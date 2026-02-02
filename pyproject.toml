@@ -1,0 +1,11 @@
+[project]
+name = "microsoft-agent-framework-101"
+version = "0.1.0"
+description = "Microsoft Agent Framework Tutorial"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "agent-framework>=1.0.0b251114",
+    "pydantic>=2.12.4",
+    "python-dotenv>=1.2.1",
+]
