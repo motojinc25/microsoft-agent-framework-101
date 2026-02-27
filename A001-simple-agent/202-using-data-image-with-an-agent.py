@@ -1,4 +1,4 @@
-# https://learn.microsoft.com/en-us/agent-framework/tutorials/agents/images?pivots=programming-language-python
+# https://learn.microsoft.com/en-us/agent-framework/agents/multimodal?pivots=programming-language-python
 # Using images with an agent, Azure OpenAI Chat Completion service
 # Environment variables
 #   - AZURE_OPENAI_ENDPOINT
@@ -7,14 +7,18 @@
 import asyncio
 from pathlib import Path
 
-from agent_framework import ChatMessage, DataContent, Role, TextContent
+from agent_framework import Content, Message
 from agent_framework.azure import AzureOpenAIChatClient
 from azure.identity import AzureCliCredential
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 async def main():
     # Create an agent
-    agent = AzureOpenAIChatClient(credential=AzureCliCredential()).create_agent(
+    agent = AzureOpenAIChatClient(credential=AzureCliCredential()).as_agent(
         instructions="You are a helpful agent that can analyze images", name="VisionAgent"
     )
 
@@ -23,11 +27,11 @@ async def main():
     with image_path.open("rb") as f:
         image_bytes = f.read()
 
-    message = ChatMessage(
-        role=Role.USER,
+    message = Message(
+        role="user",
         contents=[
-            TextContent(text="何のイメージですか？"),
-            DataContent(data=image_bytes, media_type="image/png"),
+            Content.from_text(text="何のイメージですか？"),
+            Content.from_data(data=image_bytes, media_type="image/png"),
         ],
     )
 

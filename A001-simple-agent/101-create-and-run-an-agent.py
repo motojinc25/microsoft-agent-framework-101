@@ -1,4 +1,4 @@
-# https://learn.microsoft.com/en-us/agent-framework/tutorials/agents/run-agent?pivots=programming-language-python
+# https://learn.microsoft.com/en-us/agent-framework/agents/running-agents?pivots=programming-language-python
 # Create and run an agent with Agent Framework, Azure OpenAI Chat Completion service
 # Environment variables
 #   - AZURE_OPENAI_ENDPOINT
@@ -8,13 +8,17 @@ import asyncio
 
 from agent_framework.azure import AzureOpenAIChatClient
 from azure.identity import AzureCliCredential
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 async def main():
     # Create an agent
     agent = AzureOpenAIChatClient(
         credential=AzureCliCredential(),
-    ).create_agent(instructions="You are good at telling jokes.", name="Joker")
+    ).as_agent(instructions="You are good at telling jokes.", name="Joker")
 
     # Running the agent
     result = await agent.run("日本語で面白いジョークを教えてください。")
